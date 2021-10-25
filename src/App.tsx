@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import "./App.css";
+import { initializeApp } from "firebase/app";
+import { firebaseConfig } from "./Utils/firebaseCofig";
+import { getAuth} from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+// import { useCollectionData } from "react-firebase-hooks/firestore";
+import Dashboard from "./Containers/Dashboard/Dashboard";
+import Login from "./Containers/Login/Login";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [user] = useAuthState(auth);
+  React.useEffect(() => {
+    console.log("User Object - ", user);
+  }, [user]);
+  return <>{user ? <Dashboard /> : <Login auth={auth} />}</>;
 }
+
+
 
 export default App;
