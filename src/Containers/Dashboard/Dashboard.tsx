@@ -7,7 +7,11 @@ import CallToActions from "../../Components/CallToActions/CallToActions";
 import NewOrder from "../NewOrder/NewOrder";
 import OrderList from "../OrderList/OrderList";
 
-const Dashboard = () => {
+interface IProps {
+  LogOut: any;
+}
+
+const Dashboard = ({ LogOut }: IProps) => {
   return (
     <Box component="form" sx={{}} noValidate autoComplete="off">
       <Route exact path="/">
@@ -27,6 +31,10 @@ const Dashboard = () => {
       <Route path="/orderList">
         <OrderList />
       </Route>
+      <br />
+      <br />
+      <br />
+      <LogOut/>
     </Box>
   );
 };
